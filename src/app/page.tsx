@@ -47,11 +47,11 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
 
-  let newboard = structuredClone(board);
+  // const newboard = structuredClone(board);
 
   useEffect(() => {
-    newboard = createMaze(baseboard);
-    setBoard(newboard);
+    const array = createMaze(baseboard);
+    setBoard(array);
   }, []);
   console.log(board);
 
