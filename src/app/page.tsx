@@ -5,8 +5,8 @@ import { createMaze } from '../lib';
 import styles from './page.module.css';
 
 export default function Home() {
-  const position = useState([0, 0]);
-  const facing = useState([1, 0]);
+  // const position = useState([0, 0]);
+  // const facing = useState([1, 0]);
   const baseboard = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
@@ -49,7 +49,7 @@ export default function Home() {
 
   let newboard = structuredClone(board);
 
-  const maze = useEffect(() => {
+  useEffect(() => {
     newboard = createMaze(baseboard);
     setBoard(newboard);
   }, []);
@@ -64,7 +64,7 @@ export default function Home() {
               key={`${x}-${y}`}
               className={styles.cell}
               style={{ backgroundColor: num === 1 ? 'black' : 'skyblue' }}
-            ></div>
+            />
           )),
         )}
       </div>
