@@ -5,8 +5,8 @@ import { createMaze } from '../lib';
 import styles from './page.module.css';
 
 export default function Home() {
-  // const position = useState([0, 0]);
-  // const facing = useState([1, 0]);
+  const [position, setPosition] = useState<[number, number]>([0, 0]);
+  const [facing, setFacing] = useState<[number, number]>([1, 0]);
   const baseboard = useMemo(
     () => [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -50,7 +50,7 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
 
-  // const newboard = structuredClone(board);
+  const newboard = structuredClone(board);
 
   useEffect(() => {
     const array = createMaze(baseboard);
@@ -67,7 +67,13 @@ export default function Home() {
               key={`${x}-${y}`}
               className={styles.cell}
               style={{ backgroundColor: num === 1 ? 'black' : 'skyblue' }}
-            />
+            >
+              {y === position[1] && x === position[0] && (
+                <div className={styles.facing}>
+                  {facing[1] === 1 ? '下' : facing[0] === 1 ? '右' : facing[0] === -1 ? '左' : '上'}
+                </div>
+              )}
+            </div>
           )),
         )}
       </div>
