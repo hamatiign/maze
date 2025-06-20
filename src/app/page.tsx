@@ -52,7 +52,7 @@ export default function Home() {
   useEffect(() => {
     const array = createMaze(baseboard);
     setBoard(array);
-  }, []);
+  }, [baseboard]);
   console.log(board);
 
   return (
