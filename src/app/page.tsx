@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { createMaze } from '../lib';
+import { createMaze } from '../utils';
 import styles from './page.module.css';
 
 export default function Home() {
