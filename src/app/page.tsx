@@ -32,7 +32,7 @@ export default function Home() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
 
-  const newboard = structuredClone(board);
+  // const newboard = structuredClone(board);
   const isfirst = (board: number[][]) => board.flat().filter((c) => c === 1).length === 64;
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function Home() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const selectedway = chooseway(user.x, user.y, user.nowfacing, newboard);
+      const selectedway = chooseway(user.x, user.y, user.nowfacing, board);
       setUser((prev) => ({
         ...prev,
         nowfacing: selectedway,
