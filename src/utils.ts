@@ -20,11 +20,22 @@ export const chooseway = (
   nowfacing: number[],
   board: number[][],
 ): number[] => {
-  //これリバースしタラその時点でnowfacing変わるくね？
-  const leftdirections: number[] = [nowfacing.reverse()[0] * -1, nowfacing.reverse()[1] * -1];
-  const frontdirections: number[] = nowfacing;
-  const rightdirections: number[] = [nowfacing.reverse()[0], nowfacing.reverse()[1]];
-  const behinddirectons: number[] = [nowfacing[0] * -1, nowfacing[1] * -1];
+  const index = directions.findIndex(
+    (array) => array[0] === nowfacing[0] && array[1] === nowfacing[1],
+  );
+  const leftdirections: number[] = [
+    directions[(((index - 1) % 4) + 4) % 4][0],
+    directions[(((index - 1) % 4) + 4) % 4][1],
+  ];
+  const frontdirections: number[] = [directions[index][0], directions[index][1]];
+  const rightdirections: number[] = [
+    directions[(index + 1) % 4][0],
+    directions[(index + 1) % 4][1],
+  ];
+  const behinddirectons: number[] = [
+    directions[(index + 2) % 4][0],
+    directions[(index + 2) % 4][1],
+  ];
   if (
     board[y + leftdirections[1]] !== undefined &&
     board[y + leftdirections[1]][x + leftdirections[0]] !== undefined &&

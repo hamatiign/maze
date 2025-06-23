@@ -45,18 +45,17 @@ export default function Home() {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (user.x === board.length - 1 && user.y === board.length - 1) return;
       const selectedway = chooseway(user.x, user.y, user.nowfacing, board);
+
       setUser((prev) => ({
         ...prev,
+        x: user.x + selectedway[0],
+        y: user.y + selectedway[1],
         nowfacing: selectedway,
       }));
-      setUser((prev) => ({
-        ...prev,
-        x: selectedway[0],
-        y: selectedway[1],
-      }));
 
-      console.log('prevx', user.x, 'prevy', user.y, 'prevnowfacing', user.nowfacing);
+      console.log('prevx', user.x, 'prevy', user.y, 'prevnowfacing', user.nowfacing, selectedway);
       // user.x = user.x + user.nowfacing[0];
       // user.y = user.y + user.nowfacing[1];
     }, 1000);
