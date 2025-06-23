@@ -6,7 +6,7 @@ export const createMaze = (baseboard: number[][]): number[][] => {
     for (let j = 0; j < baseboard.length; j++) {
       const randomindex = Math.floor(Math.random() * 4);
       if (baseboard[i][j] === 1) {
-        console.log(i, j);
+        // console.log(i, j);
         array[i + directions[randomindex][1]][j + directions[randomindex][0]] = 1;
       }
     }
@@ -20,10 +20,11 @@ export const chooseway = (
   nowfacing: number[],
   board: number[][],
 ): number[] => {
+  //これリバースしタラその時点でnowfacing変わるくね？
   const leftdirections: number[] = [nowfacing.reverse()[0] * -1, nowfacing.reverse()[1] * -1];
   const frontdirections: number[] = nowfacing;
   const rightdirections: number[] = [nowfacing.reverse()[0], nowfacing.reverse()[1]];
-  const behindirectons: number[] = [nowfacing[0] * -1, nowfacing[1] * -1];
+  const behinddirectons: number[] = [nowfacing[0] * -1, nowfacing[1] * -1];
   if (
     board[y + leftdirections[1]] !== undefined &&
     board[y + leftdirections[1]][x + leftdirections[0]] !== undefined &&
@@ -42,5 +43,6 @@ export const chooseway = (
     board[y + rightdirections[1]][x + rightdirections[0]] === 0
   )
     return rightdirections;
-  return behindirectons;
+
+  return behinddirectons;
 };

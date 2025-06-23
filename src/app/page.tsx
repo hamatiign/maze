@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { createMaze } from '../utils';
+import { chooseway, createMaze } from '../utils';
 import styles from './page.module.css';
 
 export default function Home() {
@@ -11,9 +11,6 @@ export default function Home() {
     facing: { north: [0, -1], east: [1, 0], south: [0, 1], west: [-1, 0] },
     nowfacing: [0, -1],
   });
-
-  const [position, setPosition] = useState<[number, number]>([0, 0]);
-  const [facing, setFacing] = useState<[number, number]>([1, 0]);
 
   const [board, setBoard] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -46,6 +43,26 @@ export default function Home() {
   }, [board]);
   // console.log(board);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const selectedway = chooseway(user.x, user.y, user.nowfacing, newboard);
+      setUser((prev) => ({
+        ...prev,
+        nowfacing: selectedway,
+      }));
+      setUser((prev) => ({
+        ...prev,
+        x: selectedway[0],
+        y: selectedway[1],
+      }));
+
+      console.log('prevx', user.x, 'prevy', user.y, 'prevnowfacing', user.nowfacing);
+      // user.x = user.x + user.nowfacing[0];
+      // user.y = user.y + user.nowfacing[1];
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [board, user]);
+
   return (
     <div className={styles.container}>
       <div className={styles.board}>
@@ -58,11 +75,11 @@ export default function Home() {
             >
               {y === user.y && x === user.x && (
                 <div className={styles.facing}>
-                  {user.facing.south
+                  {user.nowfacing[1] === 1
                     ? '下'
-                    : facing[0] === 1
+                    : user.nowfacing[0] === 1
                       ? '右'
-                      : facing[0] === -1
+                      : user.nowfacing[0] === -1
                         ? '左'
                         : '上'}
                 </div>
